@@ -92,8 +92,6 @@ Ask Claude to help deploy the stack - it reads the [`.claude/instructions.md`](.
 | **Uptime Kuma** | Service monitoring dashboard | http://NAS_IP:3001 | Via WireGuard |
 | **duc** | Disk usage analyzer (treemap UI) | http://NAS_IP:8838 | Via WireGuard |
 
-> **Security note:** Utilities are local-only by default. duc has no authentication and exposes filesystem structure. Uptime Kuma exposes infrastructure details. Access remotely via WireGuard VPN.
-
 ## Deployment Options
 
 ### Option A: Remote Access (Recommended)
