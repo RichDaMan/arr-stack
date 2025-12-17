@@ -270,7 +270,7 @@ mkdir -p cloudflared && chmod 777 cloudflared
 docker run --rm -v ./cloudflared:/home/nonroot/.cloudflared cloudflare/cloudflared tunnel login
 ```
 
-This prints a URL. Open it in your browser, select your domain, and authorize. The running cloudflared process receives the cert via callback and saves it automatically (don't download anything from the browser).
+This prints a URL. Open it in your browser, select your domain, and authorize. The running cloudflared process receives the cert via callback and saves it automatically (the browser shouldn't offer any download).
 
 **2. Create the tunnel:**
 
