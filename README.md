@@ -417,6 +417,8 @@ This project is provided as-is for personal use. Service-specific licenses apply
 
 Originally forked from [TheRealCodeVoyage/arr-stack-setup-with-pihole](https://github.com/TheRealCodeVoyage/arr-stack-setup-with-pihole).
 
+Thanks to [@benjamin-awd](https://github.com/benjamin-awd) for contributions via fork (VPN config improvements, healthcheck tuning).
+
 Built with:
 - [Traefik](https://traefik.io/) - Reverse proxy
 - [Gluetun](https://github.com/qdm12/gluetun) - VPN gateway
