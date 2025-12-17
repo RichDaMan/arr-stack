@@ -105,41 +105,24 @@ Skip the domain and access services directly via IP:port. All services work out 
 3. Access via `http://NAS_IP:PORT`
 
 
-## Updating
-
-```bash
-# Pull latest images
-docker compose -f docker-compose.arr-stack.yml pull
-
-# Recreate containers
-docker compose -f docker-compose.arr-stack.yml up -d
-```
-
 ## Security
 
-- All services use HTTPS with automatic SSL certificates
-- Network traffic routed through VPN for privacy
-- Pi-hole provides DNS-level ad-blocking
-- WireGuard enables secure remote access
-
-### IMPORTANT: Configure Authentication
-
-**Many services default to NO authentication!** After deployment, you MUST enable authentication on:
+**Many services default to NO authentication!** After deployment, enable authentication on:
 
 | Service | Default Auth | Action Required |
 |---------|--------------|-----------------|
-| Bazarr | Disabled (exposes API key!) | Enable Forms auth, regenerate API key |
-| Sonarr/Radarr/Prowlarr | Disabled for Local Addresses | Set to Forms + Enabled |
+| Bazarr | Disabled | Enable Forms auth, regenerate API key |
+| Sonarr/Radarr/Prowlarr | Disabled for Local | Set to Forms + Enabled |
 | qBittorrent | Bypass localhost | Disable bypass, change default password |
-| Uptime Kuma | None | Create admin account (forced on first access) |
+| Uptime Kuma | None | Create admin account on first access |
 
-**Why this matters with Cloudflare Tunnel**: Traffic through the tunnel appears to come from localhost, bypassing "Disabled for Local Addresses" authentication!
+**Cloudflare Tunnel warning**: Tunnel traffic appears as localhost, bypassing "Disabled for Local Addresses" auth.
 
-See the [Security section](docs/SETUP.md#59-security-enable-authentication) in the Setup Guide for detailed instructions.
+See [Security section](docs/SETUP.md#59-security-enable-authentication) in Setup Guide for details.
 
 ## License
 
-Provided as-is for personal use. See individual components for their licenses.
+Documentation, configuration files, and examples in this repository are licensed under [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/) (Attribution-NonCommercial). Individual software components (Sonarr, Radarr, Jellyfin, etc.) retain their own licenses.
 
 ## Acknowledgments
 
