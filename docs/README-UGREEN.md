@@ -365,7 +365,7 @@ Visit `https://uptime.yourdomain.com` for the monitoring dashboard.
 
 ## Ugreen NAS Port Configuration
 
-The Ugreen NAS web interface (nginx) uses ports 80/443 by default. Rather than modifying nginx (which UGOS resets on system updates), this stack configures **Traefik to use alternate ports**.
+The Ugreen NAS web interface (nginx) uses ports 80/443 by default. Rather than modifying nginx (which UGOS auto-repairs), this stack configures **Traefik to use alternate ports**.
 
 ### How It Works
 

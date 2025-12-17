@@ -101,7 +101,7 @@ Skip the domain and access services directly via IP:port. All services work out 
 
 ## Ugreen NAS Port Configuration
 
-The Ugreen NAS web interface (nginx) uses ports 80/443 by default. Rather than modifying nginx (which UGOS resets on updates), this stack configures **Traefik to use ports 8080/8443 instead**.
+The Ugreen NAS web interface (nginx) uses ports 80/443 by default. Rather than modifying nginx (which UGOS auto-repairs), this stack configures **Traefik to use ports 8080/8443 instead**.
 
 **How it works:**
 - Ugreen NAS UI stays on ports 80/443 (no changes needed)

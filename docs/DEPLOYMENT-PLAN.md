@@ -55,7 +55,7 @@ If you deploy in the wrong order, arr-stack will fail with "network not found" e
 
 ### Port Configuration (No Action Needed)
 
-Ugreen NAS (nginx) uses ports 80/443. Rather than modifying nginx (which UGOS resets on updates), this stack configures **Traefik to use ports 8080/8443 instead**.
+Ugreen NAS (nginx) uses ports 80/443. Rather than modifying nginx (which UGOS auto-repairs), this stack configures **Traefik to use ports 8080/8443 instead**.
 
 | Service | Ports |
 |---------|-------|
