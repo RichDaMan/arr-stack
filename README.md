@@ -51,7 +51,7 @@ Ask Claude to help deploy the stack - it reads the [`.claude/instructions.md`](.
 |---------|-------------|------------|------------|
 | **Traefik** | Reverse proxy with automatic SSL | 8080, 8443, 9090 | traefik.yourdomain.com |
 
-### `docker-compose.cloudflared.yml` - External Access *(Option A only)*
+### `docker-compose.cloudflared.yml` - External Access *(optional - for remote access)*
 
 | Service | Description | Local Port | Domain URL |
 |---------|-------------|------------|------------|
