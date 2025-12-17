@@ -11,6 +11,7 @@ Complete setup guide for the media automation stack. Works on any Docker host wi
 - [Step 4: Deploy Services](#step-4-deploy-services)
 - [Step 5: Configure Services](#step-5-configure-services)
 - [Step 6: Verify](#step-6-verify)
+- [Optional Utilities](#optional-utilities)
 
 **See also:** [Quick Reference](REFERENCE.md) · [Updating the Stack](UPDATING.md) · [Home Assistant Integration](HOME-ASSISTANT.md)
 
@@ -460,8 +461,8 @@ docker exec gluetun wget -qO- ifconfig.me
 
 ### 5.8 Pi-hole (DNS/Ad-blocking)
 
-1. **Access:** `http://HOST_IP/admin`
-2. **Login:** Use password from `PIHOLE_UI_PASS`
+1. **Access:** `http://HOST_IP:8081/admin`
+2. **Login:** Use password from `PIHOLE_UI_PASS` (password only, no username)
 3. **Configure DNS:** Settings → DNS → Upstream: 1.1.1.1, 1.0.0.1
 
 **Network-wide ad-blocking:** Set your router's DHCP DNS to your host IP.
@@ -504,9 +505,47 @@ docker exec qbittorrent wget -qO- ifconfig.me
 Setup complete! Now:
 
 1. **Add content:** Search for TV shows in Sonarr, movies in Radarr
-2. **Optional utilities:** Deploy `docker-compose.utilities.yml` for monitoring and disk usage
+2. **Deploy utilities** (optional): See below
 3. **Bookmark:** [Quick Reference](REFERENCE.md) for URLs, commands, and network info
 
 **Other docs:** [Updating the Stack](UPDATING.md) · [Home Assistant Integration](HOME-ASSISTANT.md)
 
 Issues? [Report on GitHub](https://github.com/Pharkie/arr-stack-ugreennas/issues).
+
+---
+
+## Optional Utilities
+
+Deploy additional utilities for monitoring and NAS optimization:
+
+```bash
+docker compose -f docker-compose.utilities.yml up -d
+```
+
+| Service | Description | Access |
+|---------|-------------|--------|
+| **deunhealth** | Auto-restarts services when VPN recovers | Internal |
+| **Uptime Kuma** | Service monitoring dashboard | http://HOST_IP:3001 |
+| **duc** | Disk usage analyzer (treemap UI) | http://HOST_IP:8838 |
+| **qbit-scheduler** | Pauses torrents overnight for disk spin-down | Internal |
+
+### qbit-scheduler Setup
+
+Pauses all torrents at 20:00 and resumes at 06:00, allowing NAS disks to spin down overnight.
+
+**Requirements:** Add qBittorrent credentials to `.env`:
+```bash
+QBIT_USER=admin
+QBIT_PASSWORD=your_qbittorrent_password
+```
+
+**Manual control:**
+```bash
+docker exec qbit-scheduler /app/pause-resume.sh pause   # Stop all torrents
+docker exec qbit-scheduler /app/pause-resume.sh resume  # Start all torrents
+```
+
+**View logs:**
+```bash
+docker logs qbit-scheduler
+```
