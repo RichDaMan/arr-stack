@@ -260,7 +260,7 @@ For local-only access, skip this section and use URLs like `http://NAS_IP:8096`.
 <details>
 <summary><strong>Option A: Cloudflare Tunnel (Recommended)</strong></summary>
 
-Cloudflare Tunnel connects outbound from your server, bypassing port forwarding and ISP restrictions. Uses wildcard DNS so you only need 2 records for all services.
+Cloudflare Tunnel connects outbound from your server, bypassing port forwarding and ISP restrictions. This setup uses the CLI and a local config file (not the Cloudflare web dashboard) for wildcard DNS routing - only 2 DNS records for all services.
 
 **1. Login to Cloudflare:**
 
