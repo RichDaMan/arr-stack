@@ -35,7 +35,7 @@ Ask Claude to help deploy the stack - it reads the [`.claude/instructions.md`](.
 
 ## Features
 
-- **VPN-protected networking** via Gluetun + Surfshark for privacy
+- **VPN-protected networking** via Gluetun (supports 30+ providers)
 - **Automated SSL/TLS** certificates via Traefik + Cloudflare
 - **Media library management** with Sonarr, Radarr, Prowlarr, Bazarr
 - **Media streaming** with Jellyfin (or Plex - see below)
