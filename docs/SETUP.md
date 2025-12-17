@@ -162,7 +162,7 @@ sudo chmod 600 /srv/docker/arr-stack/traefik/acme.json
 cp .env.example .env
 ```
 
-### 2.2 VPN Configuration (Required)
+### 2.2 VPN Configuration
 
 Gluetun supports 30+ VPN providers. Configuration varies by provider.
 
@@ -264,28 +264,28 @@ For local-only access, skip this section and use URLs like `http://NAS_IP:8096`.
 
 Cloudflare Tunnel connects outbound from your server, bypassing port forwarding and ISP restrictions.
 
-1. **Create Tunnel:**
-   - Go to https://one.dash.cloudflare.com/
-   - Networks → Tunnels → Create a tunnel
-   - Choose "Cloudflared" connector
-   - Name your tunnel (e.g., "nas-tunnel")
-   - Copy the tunnel token
+| Step | Screenshot |
+|------|------------|
+| 1. Go to [one.dash.cloudflare.com](https://one.dash.cloudflare.com/) | <img src="images/Cloudflare tunnel/1.png" width="500"> |
+| 2. Networks → Overview → **Manage Tunnels** | <img src="images/Cloudflare tunnel/2.png" width="500"> |
+| 3. Click **Add a tunnel** | <img src="images/Cloudflare tunnel/3.png" width="500"> |
+| 4. Name your tunnel (e.g., `Ugreen NAS`) → **Save** | <img src="images/Cloudflare tunnel/4.png" width="500"> |
+| 5. Choose **Docker**, copy the command containing your token | <img src="images/Cloudflare tunnel/5.png" width="500"> |
 
-2. **Add to .env:**
+6. Extract the token from the command (the long string after `--token`) and add to `.env`:
    ```bash
    TUNNEL_TOKEN=your_tunnel_token_here
    ```
 
-3. **Configure Public Hostnames** in Cloudflare dashboard:
+7. **Set up Published application routes** in Cloudflare. All subdomains point to Traefik, which handles routing:
    | Subdomain | Service | URL |
    |-----------|---------|-----|
-   | jellyfin | HTTP | jellyfin:8096 |
-   | jellyseerr | HTTP | jellyseerr:5055 |
-   | sonarr | HTTP | gluetun:8989 |
-   | radarr | HTTP | gluetun:7878 |
-   | (etc.) | | |
+   | jellyfin | HTTP | traefik:80 |
+   | sonarr | HTTP | traefik:80 |
+   | radarr | HTTP | traefik:80 |
+   | (all others) | HTTP | traefik:80 |
 
-4. **Deploy** (see Step 4)
+8. **Deploy** (see Step 4)
 
 ### Option B: Port Forwarding + DNS
 
