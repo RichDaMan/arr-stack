@@ -311,31 +311,6 @@ docker run --rm -v ./cloudflared:/home/nonroot/.cloudflared cloudflare/cloudflar
 
 **5. Deploy** (see Step 4)
 
-<details>
-<summary><strong>Alternative: GUI-Managed Tunnel (Token-Based)</strong></summary>
-
-If you prefer configuring routes in the Cloudflare dashboard instead of a config file:
-
-| Step | Screenshot |
-|:-----|:-----------|
-| 1. Go to [one.dash.cloudflare.com](https://one.dash.cloudflare.com/) → Networks → Tunnels → **Create a tunnel** | |
-| 2. Name your tunnel (e.g., `nas-tunnel`) → **Save** | <img src="images/Cloudflare tunnel/2.png" width="700"> |
-| 3. Choose **Docker** and copy the token | <img src="images/Cloudflare tunnel/4.png" width="700"> |
-
-4. Add the token to `.env`:
-   ```bash
-   TUNNEL_TOKEN=your_tunnel_token_here
-   ```
-
-5. Update `docker-compose.cloudflared.yml` to use the token approach (see comments in file).
-
-6. **Set up routes** in Cloudflare dashboard. Add each subdomain pointing to `http://traefik:80`:
-   - jellyfin, jellyseerr, sonarr, radarr, prowlarr, qbit, bazarr, pihole, wg, traefik, uptime
-
-7. Deploy as normal.
-
-</details>
-
 ### Option B: Port Forwarding + DNS
 
 Traditional approach - requires your ISP to allow incoming connections.
