@@ -2,9 +2,7 @@
 
 A complete, production-ready Docker Compose stack for automated media management with VPN routing, SSL certificates, and remote access.
 
-**Specifically designed and tested for Ugreen NAS DXP4800+** with comprehensive documentation covering deployment, configuration, troubleshooting, and production best practices.
-
-> **Note**: Tested on Ugreen NAS DXP4800+. Should work on other Ugreen models and Docker-compatible NAS devices, but may require adjustments.
+**Tested on Ugreen NAS DXP4800+** but should work on any Docker host (Synology, QNAP, Linux server, etc.).
 
 ## Legal Notice
 
@@ -138,13 +136,6 @@ docker compose -f docker-compose.arr-stack.yml up -d
 **Why this matters with Cloudflare Tunnel**: Traffic through the tunnel appears to come from localhost, bypassing "Disabled for Local Addresses" authentication!
 
 See the [Security section](docs/SETUP.md#59-security-enable-authentication) in the Setup Guide for detailed instructions.
-
-## Resources
-
-- [Setup Guide](docs/SETUP.md) - Full deployment instructions
-- [Servarr Wiki](https://wiki.servarr.com/) - Sonarr, Radarr, Prowlarr
-- [Gluetun Wiki](https://github.com/qdm12/gluetun-wiki) - VPN container
-- [Traefik Docs](https://doc.traefik.io/) - Reverse proxy
 
 ## License
 
