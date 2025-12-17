@@ -4,7 +4,10 @@ Since the stack is deployed via git, updates are straightforward.
 
 ## Pull Latest Changes
 
+SSH into your NAS, then pull:
+
 ```bash
+ssh your-username@nas-ip
 cd /volume1/docker/arr-stack  # or your deployment path
 git pull origin main
 ```
