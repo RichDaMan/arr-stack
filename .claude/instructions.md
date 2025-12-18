@@ -164,13 +164,26 @@ Backs up: compose files, .env, traefik config, all app data (Sonarr, Radarr, Pro
 
 ## Uptime Kuma SQLite
 
-Add monitors via SQLite (must include `user_id=1`):
+**Query monitors:**
+```bash
+docker exec uptime-kuma sqlite3 /app/data/kuma.db "SELECT id, name, url FROM monitor"
+```
+
+**Update monitor URL:**
+```bash
+docker exec uptime-kuma sqlite3 /app/data/kuma.db "UPDATE monitor SET url='http://NEW_URL' WHERE id=ID"
+docker restart uptime-kuma
+```
+
+**Add monitors** (must include `user_id=1`):
 ```bash
 docker exec uptime-kuma sqlite3 /app/data/kuma.db "INSERT INTO monitor (name, type, url, interval, accepted_statuscodes_json, ignore_tls, active, maxretries, user_id) VALUES ('Service Name', 'http', 'http://url', 60, '[\"200-299\"]', 0, 1, 3, 1);"
 docker restart uptime-kuma
 ```
 
 For HTTPS with self-signed cert or 401 auth page: `ignore_tls=1`, `accepted_statuscodes_json='[\"200-299\",\"401\"]'`
+
+**Note:** Services using `network_mode: service:gluetun` (qBittorrent, Sonarr, etc.) should use Gluetun's static IP (`192.168.100.3`) in Uptime Kuma, not the hostname.
 
 ## .env Gotchas
 
