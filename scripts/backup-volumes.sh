@@ -181,6 +181,27 @@ if [ "$CREATE_TAR" = true ]; then
   echo "  scp user@nas:$TARBALL ./backup.tar.gz"
 fi
 
+# Safety check: ensure critical services are running (defensive - backup shouldn't stop them, but just in case)
+COMPOSE_FILE="/volume1/docker/arr-stack/docker-compose.arr-stack.yml"
+if [ -f "$COMPOSE_FILE" ]; then
+  CRITICAL_SERVICES="gluetun pihole sonarr radarr prowlarr qbittorrent jellyfin"
+  STOPPED_SERVICES=""
+
+  for svc in $CRITICAL_SERVICES; do
+    if ! docker ps --format '{{.Names}}' | grep -q "^${svc}$"; then
+      STOPPED_SERVICES="$STOPPED_SERVICES $svc"
+    fi
+  done
+
+  if [ -n "$STOPPED_SERVICES" ]; then
+    echo ""
+    echo "WARNING: Some services not running:$STOPPED_SERVICES"
+    echo "Attempting to start them..."
+    docker compose -f "$COMPOSE_FILE" up -d $STOPPED_SERVICES 2>/dev/null
+    echo "Services restarted."
+  fi
+fi
+
 echo ""
 echo "NOTE: Backup is in /tmp which is cleared on reboot."
 echo "      Copy the tarball off-NAS before rebooting!"
