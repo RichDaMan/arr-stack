@@ -199,19 +199,35 @@ UGOS handles automatic updates natively (no Watchtower needed):
 
 ## Backups
 
-**Quick backup** (essential configs only, ~12MB compressed):
+### Automated Daily Backup (6am)
 
-```bash
-# Run on NAS
-ssh <user>@<nas-host> "cd /volume1/docker/arr-stack && ./scripts/backup-volumes.sh"
-
-# Copy to local repo (gitignored backups/ folder)
-ssh <user>@<nas-host> "cd /tmp/arr-stack-backup-* && tar czf - ." > backups/arr-stack-backup-$(date +%Y%m%d).tar.gz
+Cron runs daily at 6am, backing up essential configs to USB drive:
+```
+0 6 * * * /volume1/docker/arr-stack/scripts/backup-volumes.sh --tar /mnt/arr-backup >> /var/log/arr-backup.log 2>&1
 ```
 
-Backs up: gluetun, qbittorrent, prowlarr, bazarr, wireguard, uptime-kuma, pihole-dnsmasq, jellyseerr configs.
+**Location:** `/mnt/arr-backup/arr-stack-backup-YYYYMMDD.tar.gz`
 
-Excludes large regeneratable data: jellyfin-config (407MB), sonarr (43MB), radarr (110MB), pihole blocklists (138MB).
+**Does NOT stop services** - safe live backup.
+
+### Manual Backup / Pull to Local
+
+```bash
+# Run backup manually on NAS
+ssh <user>@<nas-host> "cd /volume1/docker/arr-stack && ./scripts/backup-volumes.sh --tar"
+
+# Pull from /tmp to local repo (gitignored backups/ folder)
+ssh <user>@<nas-host> "cat /tmp/arr-stack-backup-*.tar.gz" > backups/arr-stack-backup-$(date +%Y%m%d).tar.gz
+
+# Or pull from USB drive
+ssh <user>@<nas-host> "cat /mnt/arr-backup/arr-stack-backup-*.tar.gz" > backups/arr-stack-backup-$(date +%Y%m%d).tar.gz
+```
+
+### What's Backed Up
+
+**Included** (~12MB compressed): gluetun, qbittorrent, prowlarr, bazarr, wireguard, uptime-kuma, pihole-dnsmasq, jellyseerr configs.
+
+**Excluded** (regeneratable): jellyfin-config (407MB), sonarr (43MB), radarr (110MB), pihole blocklists (138MB).
 
 ## Uptime Kuma SQLite
 
