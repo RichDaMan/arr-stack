@@ -15,7 +15,15 @@ Complete setup guide for the media automation stack. Works on any Docker host wi
 - [Backup](#backup)
 - [Optional Utilities](#optional-utilities)
 
-**See also:** [Quick Reference](REFERENCE.md) · [Upgrading](UPGRADING.md) · [Home Assistant Integration](HOME-ASSISTANT.md)
+**Other docs:**
+
+| Doc | Purpose |
+|-----|---------|
+| [Quick Reference](REFERENCE.md) | URLs, commands, IPs |
+| [Upgrading](UPGRADING.md) | Pull updates, redeploy |
+| [Backup & Restore](BACKUP.md) | Backup configs, restore |
+| [Home Assistant](HOME-ASSISTANT.md) | Notifications integration |
+| [Legal](LEGAL.md) | Intended use, disclaimer |
 
 ---
 
