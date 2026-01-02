@@ -433,9 +433,17 @@ VPN-protected services (qBittorrent, Sonarr, Radarr, Prowlarr, SABnzbd) share Gl
 
 See **[Quick Reference → Service Connection Guide](REFERENCE.md#service-connection-guide)** for the full address table.
 
-### 4.1 qBittorrent
+### 4.1 Jellyfin (Media Server)
 
-Torrent download client.
+Streams your media library to any device.
+
+1. **Access:** `http://HOST_IP:8096`
+2. **Initial Setup:** Create admin account
+3. **Add Libraries:**
+   - Movies: Content type "Movies", Folder `/media/movies`
+   - TV Shows: Content type "Shows", Folder `/media/tv`
+
+### 4.2 qBittorrent (Torrent Downloads)
 
 1. **Access:** `http://HOST_IP:8085`
 2. **Get temporary password** (qBittorrent 4.6.1+ generates a random password):
@@ -464,7 +472,7 @@ Torrent download client.
 
 > **Mobile access?** The default UI is poor on mobile. [VueTorrent](https://github.com/VueTorrent/VueTorrent) is pre-installed—enable it at Tools → Options → Web UI → Use alternative WebUI → `/vuetorrent`.
 
-### 4.2 SABnzbd (Usenet Downloads)
+### 4.3 SABnzbd (Usenet Downloads)
 
 SABnzbd provides Usenet downloads as an alternative/complement to qBittorrent.
 
@@ -499,37 +507,9 @@ SABnzbd provides Usenet downloads as an alternative/complement to qBittorrent.
 
 4. **Get API Key:** Config (⚙️) → General → Copy **API Key**
 
-5. **Add Usenet indexer to Prowlarr** (next section):
+5. **Add Usenet indexer to Prowlarr** (later step):
    - NZBGeek ($12/year): https://nzbgeek.info
    - DrunkenSlug (free tier): https://drunkenslug.com
-
-### 4.3 Prowlarr (Indexer Manager)
-
-Manages torrent/Usenet indexers and syncs them to Sonarr/Radarr.
-
-1. **Access:** `http://HOST_IP:9696`
-2. **Add Torrent Indexers:** Indexers (left sidebar) → + button → search by name
-3. **Add Usenet Indexer** (if using SABnzbd):
-   - **Indexers** (left sidebar, NOT Settings → Indexer Proxies) → + button
-   - Search by indexer name (e.g., "NZBGeek", "DrunkenSlug", "NZBFinder")
-   - API Key: (from your indexer account → API section)
-   - **Tags:** leave blank (syncs to all apps)
-   - **Indexer Proxy:** leave blank (not needed for Usenet)
-   - Test → Save
-
-   > **Tested with:** NZBGeek (~$12/year, reliable). Free alternatives: DrunkenSlug, NZBFinder.
-
-4. **Add FlareSolverr** (for protected torrent sites):
-   - Settings → Indexers → Add FlareSolverr
-   - Host: `http://172.20.0.10:8191`
-   - Tag: `flaresolverr`
-   - **Note:** FlareSolverr doesn't bypass all Cloudflare protections - some indexers may still fail. Non-protected indexers are more reliable.
-5. **Connect to Sonarr:**
-   - Settings → Apps → Add → Sonarr
-   - Sonarr Server: `http://localhost:8989` (they share gluetun's network)
-   - API Key: (from Sonarr → Settings → General → Security)
-6. **Connect to Radarr:** Same process with `http://localhost:7878`
-7. **Sync:** Settings → Apps → Sync App Indexers
 
 ### 4.4 Sonarr (TV Shows)
 
@@ -573,30 +553,35 @@ Automatically searches, downloads, and organizes movies.
    - API Key: (from SABnzbd Config → General)
    - Category: `movies` (default category in SABnzbd)
 
-### 4.6 Prefer Usenet over Torrents (Optional)
+### 4.6 Prowlarr (Indexer Manager)
 
-If you have both qBittorrent and SABnzbd configured, Sonarr/Radarr will grab whichever is available first. To prefer Usenet (faster, no seeding):
+Manages torrent/Usenet indexers and syncs them to Sonarr/Radarr.
 
-1. Settings → Profiles → Delay Profiles
-2. Click the **wrench/spanner icon** on the existing profile (don't click +)
-3. Set: **Usenet Delay:** `0` minutes, **Torrent Delay:** `30` minutes
-4. Save
+1. **Access:** `http://HOST_IP:9696`
+2. **Add Torrent Indexers:** Indexers (left sidebar) → + button → search by name
+3. **Add Usenet Indexer** (if using SABnzbd):
+   - **Indexers** (left sidebar, NOT Settings → Indexer Proxies) → + button
+   - Search by indexer name (e.g., "NZBGeek", "DrunkenSlug", "NZBFinder")
+   - API Key: (from your indexer account → API section)
+   - **Tags:** leave blank (syncs to all apps)
+   - **Indexer Proxy:** leave blank (not needed for Usenet)
+   - Test → Save
 
-This gives Usenet a 30-minute head start before considering torrents.
+   > **Tested with:** NZBGeek (~$12/year, reliable). Free alternatives: DrunkenSlug, NZBFinder.
 
-> **Note:** Repeat in both Sonarr and Radarr if you want consistent behavior.
+4. **Add FlareSolverr** (for protected torrent sites):
+   - Settings → Indexers → Add FlareSolverr
+   - Host: `http://172.20.0.10:8191`
+   - Tag: `flaresolverr`
+   - **Note:** FlareSolverr doesn't bypass all Cloudflare protections - some indexers may still fail. Non-protected indexers are more reliable.
+5. **Connect to Sonarr:**
+   - Settings → Apps → Add → Sonarr
+   - Sonarr Server: `http://localhost:8989` (they share gluetun's network)
+   - API Key: (from Sonarr → Settings → General → Security)
+6. **Connect to Radarr:** Same process with `http://localhost:7878`
+7. **Sync:** Settings → Apps → Sync App Indexers
 
-### 4.7 Jellyfin (Media Server)
-
-Streams your media library to any device.
-
-1. **Access:** `http://HOST_IP:8096`
-2. **Initial Setup:** Create admin account
-3. **Add Libraries:**
-   - Movies: Content type "Movies", Folder `/media/movies`
-   - TV Shows: Content type "Shows", Folder `/media/tv`
-
-### 4.8 Jellyseerr (Request Manager)
+### 4.7 Jellyseerr (Request Manager)
 
 Lets users browse and request movies/TV shows.
 
@@ -608,7 +593,7 @@ Lets users browse and request movies/TV shows.
    - Settings → Services → Add Sonarr: `http://gluetun:8989` (Sonarr runs via gluetun)
    - Settings → Services → Add Radarr: `http://gluetun:7878` (Radarr runs via gluetun)
 
-### 4.9 Bazarr (Subtitles)
+### 4.8 Bazarr (Subtitles)
 
 Automatically downloads subtitles for your media.
 
@@ -617,6 +602,19 @@ Automatically downloads subtitles for your media.
 3. **Connect to Sonarr:** Settings → Sonarr → `http://gluetun:8989` (Sonarr runs via gluetun)
 4. **Connect to Radarr:** Settings → Radarr → `http://gluetun:7878` (Radarr runs via gluetun)
 5. **Add Providers:** Settings → Providers (OpenSubtitles, etc.)
+
+### 4.9 Prefer Usenet over Torrents (Optional)
+
+If you have both qBittorrent and SABnzbd configured, Sonarr/Radarr will grab whichever is available first. To prefer Usenet (faster, no seeding):
+
+1. Settings → Profiles → Delay Profiles
+2. Click the **wrench/spanner icon** on the existing profile (don't click +)
+3. Set: **Usenet Delay:** `0` minutes, **Torrent Delay:** `30` minutes
+4. Save
+
+This gives Usenet a 30-minute head start before considering torrents.
+
+> **Note:** Repeat in both Sonarr and Radarr if you want consistent behavior.
 
 ### 4.10 Pi-hole (DNS)
 
