@@ -535,6 +535,11 @@ Automatically searches, downloads, and organizes TV shows.
    - API Key: (from SABnzbd Config → General)
    - Category: `tv` (default category in SABnzbd)
 
+4. **Block ISOs:** Some indexers serve disc images that Jellyfin can't play.
+   - Settings → Custom Formats → + → Name: `Reject ISO`
+   - Add condition: Release Title, value `\.iso$`, check **Regex**
+   - Settings → Profiles → your quality profile → set `Reject ISO` to `-10000`
+
 ### 4.5 Radarr (Movies)
 
 Automatically searches, downloads, and organizes movies.
@@ -555,6 +560,11 @@ Automatically searches, downloads, and organizes movies.
    - Port: `8080`
    - API Key: (from SABnzbd Config → General)
    - Category: `movies` (default category in SABnzbd)
+
+4. **Block ISOs:** Some indexers serve disc images that Jellyfin can't play.
+   - Settings → Custom Formats → + → Name: `Reject ISO`
+   - Add condition: Release Title, value `\.iso$`, check **Regex**
+   - Settings → Profiles → your quality profile → set `Reject ISO` to `-10000`
 
 ### 4.6 Prowlarr (Indexer Manager)
 
