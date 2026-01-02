@@ -764,7 +764,7 @@ Access your services from anywhere: `jellyfin.yourdomain.com` instead of only on
 
 ### Cloudflare Tunnel Setup
 
-Cloudflare Tunnel connects outbound from your server, bypassing port forwarding and ISP restrictions. This setup uses the CLI and a local config file (not the Cloudflare web dashboard) for wildcard DNS routing - only 2 DNS records for all services.
+Cloudflare Tunnel lets you access services from outside your home without opening ports on your router. We use CLI commands (faster than clicking through the web dashboard).
 
 **1. Login to Cloudflare (run on NAS via SSH):**
 
