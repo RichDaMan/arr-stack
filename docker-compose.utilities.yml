@@ -102,8 +102,8 @@ services:
     logging: *default-logging
 
   # ═══════════════════════════════════════════════════════════════════════════
-  # QBIT-SCHEDULER - Pauses torrents overnight (20:00-06:00) to let disks
-  # spin down and reduce power/noise. No web UI.
+  # QBIT-SCHEDULER - Pauses torrents overnight to let disks spin down.
+  # Default: pause at 20:00, resume at 06:00. No web UI.
   # ═══════════════════════════════════════════════════════════════════════════
   qbit-scheduler:
     build: ./scripts/qbit-scheduler
@@ -114,5 +114,7 @@ services:
       - QBIT_PORT=8085
       - QBIT_USER=${QBIT_USER:-admin}
       - QBIT_PASS=${QBIT_PASSWORD}
+      - PAUSE_HOUR=${QBIT_PAUSE_HOUR:-20}
+      - RESUME_HOUR=${QBIT_RESUME_HOUR:-6}
     restart: always
     logging: *default-logging

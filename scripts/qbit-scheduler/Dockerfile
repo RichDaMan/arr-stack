@@ -5,9 +5,8 @@ RUN apk add --no-cache curl tzdata
 WORKDIR /app
 
 COPY pause-resume.sh /app/
-COPY crontab /etc/crontabs/root
+COPY entrypoint.sh /app/
 
-RUN chmod +x /app/pause-resume.sh
+RUN chmod +x /app/pause-resume.sh /app/entrypoint.sh
 
-# Run crond in foreground
-CMD ["crond", "-f", "-l", "2"]
+CMD ["/app/entrypoint.sh"]

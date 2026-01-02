@@ -907,12 +907,14 @@ docker compose -f docker-compose.utilities.yml up -d
 
 ### qbit-scheduler Setup
 
-Pauses all torrents at 20:00 and resumes at 06:00, allowing NAS disks to spin down overnight.
+Pauses torrents overnight so NAS disks can spin down (quieter, less power).
 
-**Requirements:** Add qBittorrent credentials to `.env`:
+**Configure in `.env`:**
 ```bash
 QBIT_USER=admin
 QBIT_PASSWORD=your_qbittorrent_password
+QBIT_PAUSE_HOUR=20    # Optional: hour to pause (default 20 = 8pm)
+QBIT_RESUME_HOUR=6    # Optional: hour to resume (default 6 = 6am)
 ```
 
 **Manual control:**
