@@ -64,6 +64,10 @@ If you use Tailscale: skip the WireGuard *service* (the `WG_PASSWORD_HASH` stuff
 
 > **Why Usenet?** More reliable than public torrents (no fakes), faster downloads, SSL-encrypted (no VPN needed). See [SABnzbd setup](#45-sabnzbd-usenet-downloads).
 
+**For + remote access:**
+- **Domain name** (~$10/year) - [Cloudflare Registrar](https://www.cloudflare.com/products/registrar/) recommended
+- **Cloudflare account** (free tier)
+
 ---
 
 ## Choose Your Setup
