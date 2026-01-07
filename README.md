@@ -47,6 +47,15 @@ Watch: Jellyfin — locally or remotely via Traefik
 
 **[Setup Guide →](docs/SETUP.md)**
 
+| Doc | Purpose |
+|-----|---------|
+| [Architecture](docs/ARCHITECTURE.md) | Understand how the stack fits together |
+| [Quick Reference](docs/REFERENCE.md) | Cheat sheet: all URLs, ports, IPs, common commands |
+| [Upgrading](docs/UPGRADING.md) | How to pull updates and redeploy |
+| [Backup & Restore](docs/BACKUP.md) | Backup your configs, restore after disaster |
+| [Home Assistant](docs/HOME-ASSISTANT.md) | Get notifications when downloads complete |
+| [Legal](docs/LEGAL.md) | What this software is for, disclaimer |
+
 ## Like This Project?
 
 If this project helped you, give it a ⭐ to help others find it, or buy me a coffee:

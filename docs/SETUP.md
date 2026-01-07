@@ -17,17 +17,6 @@ Everything you need to go from zero to streaming. Works on any NAS or Docker hos
 - [Backup](#backup)
 - [Optional Utilities](#optional-utilities)
 
-**Other docs:**
-
-| Doc | Purpose |
-|-----|---------|
-| [Architecture](ARCHITECTURE.md) | Understand how the stack fits together |
-| [Quick Reference](REFERENCE.md) | Cheat sheet: all URLs, ports, IPs, common commands |
-| [Upgrading](UPGRADING.md) | How to pull updates and redeploy |
-| [Backup & Restore](BACKUP.md) | Backup your configs, restore after disaster |
-| [Home Assistant](HOME-ASSISTANT.md) | Get notifications when downloads complete |
-| [Legal](LEGAL.md) | What this software is for, disclaimer |
-
 ---
 
 ## Choose Your Setup
