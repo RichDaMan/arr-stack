@@ -28,10 +28,10 @@ services:
       arr-stack:
         ipv4_address: 172.20.0.12
     healthcheck:
-      test: ["CMD", "cloudflared", "tunnel", "info"]
+      test: ["CMD", "cloudflared", "version"]
       interval: 30s
       timeout: 10s
-      retries: 5
+      retries: 3
       start_period: 30s
     labels:
       - "deunhealth.restart.on.unhealthy=true"
