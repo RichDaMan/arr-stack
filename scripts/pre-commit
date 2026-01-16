@@ -41,6 +41,7 @@ source "$SCRIPT_DIR/lib/check-hardcoded-domain.sh"
 source "$SCRIPT_DIR/lib/check-env-backup.sh"
 source "$SCRIPT_DIR/lib/check-uptime-monitors.sh"
 source "$SCRIPT_DIR/lib/check-dns-duplicates.sh"
+source "$SCRIPT_DIR/lib/check-domains.sh"
 
 # Track results
 ERRORS=0
@@ -138,6 +139,13 @@ echo ""
 # ==========================================
 echo -e "${BLUE}9. Checking for duplicate .lan domains...${NC}"
 check_dns_duplicates
+echo ""
+
+# ==========================================
+# CHECK 10: Domain Accessibility (WARNS)
+# ==========================================
+echo -e "${BLUE}10. Checking domain accessibility...${NC}"
+check_domains
 echo ""
 
 # ==========================================

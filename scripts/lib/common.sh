@@ -114,6 +114,17 @@ has_nas_config() {
     [[ -n "$_NAS_HOST" ]]
 }
 
+# Get NAS IP from .env.nas.backup (for DNS queries to Pi-hole)
+get_nas_ip() {
+    local repo_root env_backup
+    repo_root=$(get_repo_root)
+    env_backup="$repo_root/.env.nas.backup"
+
+    if [[ -f "$env_backup" ]]; then
+        grep -E '^NAS_IP=' "$env_backup" 2>/dev/null | cut -d= -f2 | tr -d '"' | tr -d "'"
+    fi
+}
+
 # ============================================
 # Domain Configuration (from .env or .env.nas.backup)
 # ============================================
