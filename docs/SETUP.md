@@ -59,6 +59,17 @@ If you use Tailscale: skip the WireGuard *service* (the `WG_PASSWORD_HASH` stuff
 
 </details>
 
+<details>
+<summary><strong>New to Docker?</strong></summary>
+
+**Docker** runs applications in isolated "containers" - like lightweight virtual machines. Each service (Jellyfin, Sonarr, etc.) runs in its own container.
+
+**Docker Compose** lets you define multiple containers in a single file (`docker-compose.yml`) and start them all with one command. Instead of typing out dozens of options for each container, you just run `docker compose up -d`.
+
+This stack uses Docker Compose because it has 10+ services that need to work together. The compose file defines how they're connected, what ports they use, and where they store data.
+
+</details>
+
 - **Usenet Provider** (optional, ~$4-6/month) - Frugal Usenet, Newshosting, Eweka, etc.
 - **Usenet Indexer** (optional) - NZBGeek (~$12/year) or DrunkenSlug (free tier)
 
