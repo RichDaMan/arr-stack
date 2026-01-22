@@ -347,7 +347,7 @@ services:
       - WG_HOST=wg.${DOMAIN}
       - PASSWORD_HASH=${WG_PASSWORD_HASH}
       - WG_DEFAULT_ADDRESS=10.8.0.x
-      - WG_DEFAULT_DNS=10.8.1.200
+      - WG_DEFAULT_DNS=${NAS_IP}  # Pi-hole for .lan domain resolution
       - TZ=${TZ}
     volumes:
       - wireguard-easy-config:/etc/wireguard
