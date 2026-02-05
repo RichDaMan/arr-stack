@@ -1,6 +1,6 @@
 # Home Assistant Integration
 
-Send notifications from Sonarr/Radarr to Home Assistant.
+Send notifications from Sonarr/Radarr, Uptime Kuma, and Beszel to Home Assistant.
 
 ## Prerequisites
 
@@ -60,3 +60,46 @@ In Uptime Kuma: Settings → Notifications → Setup Notification
 - Type: Home Assistant
 - URL: `http://homeassistant.lan:8123`
 - Long-Lived Access Token: (create in HA → Profile → Long-Lived Access Tokens)
+
+## Beszel → Home Assistant
+
+Requires `docker-compose.utilities.yml` deployed.
+
+### Step 1: Create HA Automation
+
+Beszel sends a different JSON format than Sonarr/Radarr, so create a separate automation:
+
+```yaml
+alias: Beszel Alerts
+description: System alerts from Beszel monitoring
+trigger:
+  - platform: webhook
+    webhook_id: beszel-alerts
+    local_only: false
+action:
+  - service: notify.persistent_notification
+    data:
+      title: "{{ trigger.json.title | default('Beszel Alert') }}"
+      message: "{{ trigger.json.message | default(trigger.json | string) }}"
+mode: single
+```
+
+### Step 2: Configure Beszel
+
+In Beszel: Settings → Notifications → Add URL
+
+**Important:** Beszel can't resolve `.lan` domains (uses Docker internal DNS). Use your Home Assistant IP address directly.
+
+```
+generic+http://HOME_ASSISTANT_IP:8123/api/webhook/beszel-alerts?template=json
+```
+
+Example: `generic+http://10.10.0.20:8123/api/webhook/beszel-alerts?template=json`
+
+Click **Test URL** to verify.
+
+### Step 3: Configure Alerts
+
+In Beszel, click on your system → set alert thresholds for CPU, Memory, Disk, Load Average, etc.
+
+To view/manage alerts: `http://beszel.lan/_/#/collections` → select the alerts collection.
